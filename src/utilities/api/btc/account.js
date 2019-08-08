@@ -1,6 +1,6 @@
-import bitcoin from 'bitcoinjs-lib';
+import { payments } from 'bitcoinjs-lib';
 import Lisk from '@liskhq/lisk-client';
-import bip32 from 'bip32';
+import { fromSeed } from 'bip32';
 import config from '../../../../btc.config';
 
 export const getSummary = address => new Promise(async (resolve, reject) => {
@@ -23,13 +23,13 @@ export const getSummary = address => new Promise(async (resolve, reject) => {
 
 export const getDerivedPathFromPassphrase = (passphrase) => {
   const seed = Lisk.passphrase.Mnemonic.mnemonicToSeed(passphrase);
-  return bip32.fromSeed(seed, config.network).derivePath(config.derivationPath);
+  return fromSeed(seed, config.network).derivePath(config.derivationPath);
 };
 
 export const extractPublicKey = passphrase => getDerivedPathFromPassphrase(passphrase).publicKey;
 
 export const extractAddress = (passphrase) => {
   const publicKey = extractPublicKey(passphrase);
-  const btc = bitcoin.payments.p2pkh({ pubkey: publicKey, network: config.network });
+  const btc = payments.p2pkh({ pubkey: publicKey, network: config.network });
   return btc.address;
 };
