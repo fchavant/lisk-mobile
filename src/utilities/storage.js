@@ -53,7 +53,7 @@ export async function fetchData(key) {
   }
 }
 
-export const retrieveAccounts = () =>
+export const retrieveFollowedAccounts = () =>
   fetchData('LiskfollowedAccounts')
     .then(data => validateAccounts(data))
     .catch(() => blankAccounts);

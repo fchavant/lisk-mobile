@@ -1,5 +1,5 @@
 import actionTypes from '../constants/actions';
-import { retrieveAccounts, storeAccounts } from '../utilities/storage';
+import { retrieveFollowedAccounts, storeFollowedAccount } from '../utilities/storage';
 import { account as accountAPI, transactions as transactionsAPI } from '../utilities/api';
 import { loadingStarted, loadingFinished } from './loading';
 
@@ -15,7 +15,7 @@ import { loadingStarted, loadingFinished } from './loading';
  */
 export const accountsStored = data =>
   (dispatch) => {
-    storeAccounts(data)
+    storeFollowedAccount(data)
       .then(() => {
         dispatch({
           type: actionTypes.accountsStored,
@@ -37,7 +37,7 @@ export const accountsStored = data =>
  */
 export const followedAccountsRetrieved = () =>
   (dispatch) => {
-    retrieveAccounts()
+    retrieveFollowedAccounts()
       .then((accounts) => {
         if (accounts.LSK) {
           dispatch({
