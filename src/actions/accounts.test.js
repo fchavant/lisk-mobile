@@ -102,8 +102,8 @@ describe('Action: Accounts', () => {
   beforeEach(() => {
     accountAPI.getSummary = jest.fn();
     transactionsAPI.get = jest.fn();
-    storageUtility.storeAccounts = jest.fn();
-    storageUtility.retrieveAccounts = jest.fn();
+    storageUtility.storeFollowedAccount = jest.fn();
+    storageUtility.retrieveFollowedAccounts = jest.fn();
   });
 
   it('should return an accountUnFollowed action object', () => {
@@ -229,7 +229,7 @@ describe('Action: Accounts', () => {
     const expectedActions = [
       { type: actionTypes.accountsStored },
     ];
-    storageUtility.storeAccounts.mockResolvedValue({});
+    storageUtility.storeFollowedAccount.mockResolvedValue({});
     await store.dispatch(accountsStored({ address: data.address }));
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -239,7 +239,7 @@ describe('Action: Accounts', () => {
     const expectedActions = [
       { type: actionTypes.followedAccountsRetrieved, data: { BTC: [], LSK: [data.account] } },
     ];
-    storageUtility.retrieveAccounts.mockResolvedValue([data.account]);
+    storageUtility.retrieveFollowedAccounts.mockResolvedValue([data.account]);
     await store.dispatch(followedAccountsRetrieved());
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -259,7 +259,7 @@ describe('Action: Accounts', () => {
       },
       { type: actionTypes.followedAccountsRetrieved, data: { BTC: [], LSK: [data.account] } },
     ];
-    storageUtility.retrieveAccounts.mockResolvedValue([data.account]);
+    storageUtility.retrieveFollowedAccounts.mockResolvedValue([data.account]);
     await store.dispatch(accountSignedIn({ passphrase: data.passphrase }));
     expect(store.getActions()).toEqual(expectedActions);
   });

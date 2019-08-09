@@ -7,7 +7,7 @@ import {
   blankSettings,
   storeFollowedAccount,
   blankAccounts,
-  retrieveAccounts,
+  retrieveFollowedAccounts,
 } from './storage';
 import { merge } from './helpers';
 
@@ -83,7 +83,7 @@ describe('storeFollowedAccounts/retrieveFollowedAccounts', () => {
   });
 
   it('reads empty accounts from storage', async () => {
-    const result = await retrieveAccounts();
+    const result = await retrieveFollowedAccounts();
     expect(result).toMatchObject(blankAccounts);
   });
 
@@ -93,7 +93,7 @@ describe('storeFollowedAccounts/retrieveFollowedAccounts', () => {
   });
 
   it('reads written accounts from storage', async () => {
-    const result = await retrieveAccounts();
+    const result = await retrieveFollowedAccounts();
     expect(result).toMatchObject(ACCOUNTS_TO_STORE);
   });
 });
